@@ -71,21 +71,6 @@ export function getOrganizationSchema() {
     legalName: siteConfig.legalName,
     url: siteConfig.url,
     description: siteConfig.description,
-    email: siteConfig.contact.email,
-    telephone: siteConfig.contact.phone,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: siteConfig.contact.country,
-    },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "sales and export inquiries",
-        email: siteConfig.contact.inquiryEmail,
-        telephone: siteConfig.contact.phone,
-        availableLanguage: ["English", "Hindi"],
-      },
-    ],
   };
 }
 

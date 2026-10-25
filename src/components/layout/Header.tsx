@@ -13,10 +13,16 @@ export function Header() {
           <div className="flex items-center gap-4 text-slate-300">
             <span>Global Export &amp; Sourcing Partner</span>
             <span className="hidden md:inline text-slate-500">•</span>
-            <span className="hidden md:inline">Inquiries: {siteConfig.contact.inquiryEmail}</span>
+            <span className="hidden md:inline">Commercial Chemical Supplies</span>
           </div>
           <div className="text-slate-300">
-            <span>Direct Desk: {siteConfig.contact.phone}</span>
+            <Link
+              href="/contact-us"
+              className="hover:text-teal-light transition-colors flex items-center gap-1"
+            >
+              <span>Export Inquiry Desk</span>
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
           </div>
         </Container>
       </div>

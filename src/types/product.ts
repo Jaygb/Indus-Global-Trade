@@ -19,11 +19,16 @@ export interface ProductItem {
   slug: string;
   categoryId: string;
   title: string;
+  subtitle?: string;
+  shortDescription: string;
+  image: string;
+  imageAlt: string;
   casNumber?: string;
   grade?: string;
   purity?: string;
-  applications: string[];
-  packagingOptions: string[];
-  specifications: ProductSpecification[];
+  applications?: string[];
+  packagingOptions?: string[];
+  specifications?: ProductSpecification[];
+  featured?: boolean;
   isActive: boolean;
 }

@@ -2,61 +2,53 @@ import { ProductItem } from "@/types/product";
 
 export const products: ProductItem[] = [
   {
-    id: "chem-001",
-    slug: "industrial-grade-acetic-acid",
+    id: "prod-glycerin",
+    slug: "refined-glycerin",
     categoryId: "cat-chemicals",
-    title: "Industrial Grade Acetic Acid",
-    casNumber: "64-19-7",
-    grade: "Industrial Grade",
-    purity: "99.85% min",
-    applications: [
-      "Chemical synthesis",
-      "Textile dyeing and finishing",
-      "Paints and resins formulation",
-      "Solvent and intermediate production",
-    ],
-    packagingOptions: [
-      "30 kg Jerry Cans",
-      "220 kg HDPE Drums",
-      "1000 kg IBC Tanks",
-      "ISO Tank Containers",
-    ],
-    specifications: [
-      { property: "Assay / Purity", value: "≥ 99.85 %" },
-      { property: "Moisture Content", value: "≤ 0.15 %" },
-      { property: "Density at 20°C", value: "1.049 g/cm³" },
-      { property: "Freezing Point", value: "≥ 16.3 °C" },
-    ],
+    title: "Refined Glycerin — Glycerol",
+    subtitle: "High-Purity Industrial & Commercial Grade",
+    shortDescription:
+      "High-purity refined glycerin suitable for pharmaceutical, personal care, food, and industrial formulations. Available in commercial export packaging.",
+    image: "/images/products/refined-glycerin.jpg",
+    imageAlt: "Sample of clear refined glycerin in laboratory glassware",
+    featured: true,
     isActive: true,
   },
   {
-    id: "chem-002",
-    slug: "caustic-soda-flakes",
+    id: "prod-menthol",
+    slug: "menthol",
     categoryId: "cat-chemicals",
-    title: "Caustic Soda Flakes (Sodium Hydroxide)",
-    casNumber: "1310-73-2",
-    grade: "Technical / Industrial Grade",
-    purity: "99.0% min",
-    applications: [
-      "Pulp and paper manufacturing",
-      "Soap and detergent production",
-      "Water treatment processes",
-      "Textile processing and mercerizing",
-    ],
-    packagingOptions: [
-      "25 kg PP Bags with inner PE liner",
-      "50 kg Woven Bags",
-      "1000 kg Jumbo Bags",
-    ],
-    specifications: [
-      { property: "NaOH Assay", value: "≥ 99.0 %" },
-      { property: "Na2CO3", value: "≤ 0.5 %" },
-      { property: "NaCl", value: "≤ 0.03 %" },
-      { property: "Fe2O3", value: "≤ 0.005 %" },
-    ],
+    title: "Menthol — Natural & Synthetic",
+    subtitle: "Crystalline Flakes & Needles",
+    shortDescription:
+      "Pure crystalline natural and synthetic menthol for pharmaceutical, cosmetic, flavoring, and confectionery processing with consistent aroma profiles.",
+    image: "/images/products/menthol.jpg",
+    imageAlt: "Pure white menthol crystals on clean inspection surface",
+    featured: true,
+    isActive: true,
+  },
+  {
+    id: "prod-msg",
+    slug: "monosodium-glutamate",
+    categoryId: "cat-chemicals",
+    title: "Monosodium Glutamate — MSG",
+    subtitle: "Food-Grade Flavor Enhancer Crystals",
+    shortDescription:
+      "Refined food-grade monosodium glutamate crystals supplied in bulk for commercial food processing, seasoning blends, and savory formulations.",
+    image: "/images/products/monosodium-glutamate.jpg",
+    imageAlt: "Refined crystalline monosodium glutamate (MSG) sample",
+    featured: true,
     isActive: true,
   },
 ];
+
+export function getActiveProducts(): ProductItem[] {
+  return products.filter((product) => product.isActive);
+}
+
+export function getFeaturedProducts(): ProductItem[] {
+  return products.filter((product) => product.isActive && product.featured);
+}
 
 export function getProductsByCategory(categoryId: string): ProductItem[] {
   return products.filter(

@@ -13,9 +13,9 @@ export const siteConfig: SiteConfig = {
   url: siteUrl,
   ogImage: `${siteUrl}/images/og-image.jpg`,
   contact: {
-    email: "info@indusglobaltrade.com",
-    inquiryEmail: "export@indusglobaltrade.com",
-    phone: "+91 (0) 0000 00000",
+    email: "info@indusglobaltrade.com (Placeholder)",
+    inquiryEmail: "export@indusglobaltrade.com (Placeholder)",
+    phone: "[Direct phone to be provided]",
     country: "India",
     operatingHours: "Monday to Friday: 09:00 - 18:00 IST",
   },
