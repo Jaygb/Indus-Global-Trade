@@ -76,8 +76,8 @@ export function Navbar({ items }: NavbarProps) {
                   className={cn(
                     "px-3 py-2 text-sm font-medium rounded-l-md transition-colors",
                     isActive
-                      ? "text-teal bg-light-grey"
-                      : "text-navy hover:text-teal hover:bg-light-grey/80"
+                      ? "text-teal-light bg-white/10 font-semibold"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                   )}
                 >
                   {item.title}
@@ -93,8 +93,8 @@ export function Navbar({ items }: NavbarProps) {
                   className={cn(
                     "px-1.5 py-2 text-sm font-medium rounded-r-md transition-colors",
                     isActive || isDropdownOpen
-                      ? "text-teal bg-light-grey"
-                      : "text-navy hover:text-teal hover:bg-light-grey/80"
+                      ? "text-teal-light bg-white/10"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                   )}
                 >
                   <svg
@@ -120,7 +120,7 @@ export function Navbar({ items }: NavbarProps) {
                 {isDropdownOpen && (
                   <div
                     onMouseLeave={() => setActiveDropdown(null)}
-                    className="absolute left-0 top-full mt-1 w-64 rounded-md shadow-lg bg-white border border-border-subtle py-2 z-50 animate-in fade-in slide-in-from-top-1"
+                    className="absolute left-0 top-full mt-2 w-72 rounded-lg shadow-xl bg-navy-dark border border-navy-light/60 py-2.5 z-50 animate-in fade-in slide-in-from-top-1 backdrop-blur-md"
                     role="menu"
                     aria-orientation="vertical"
                   >
@@ -132,14 +132,14 @@ export function Navbar({ items }: NavbarProps) {
                         className={cn(
                           "block px-4 py-2.5 text-sm transition-colors",
                           pathname === child.href
-                            ? "bg-light-grey text-teal font-medium"
-                            : "text-navy hover:bg-light-grey hover:text-teal"
+                            ? "bg-white/10 text-teal-light font-medium"
+                            : "text-slate-200 hover:bg-white/10 hover:text-white"
                         )}
                         onClick={() => setActiveDropdown(null)}
                       >
-                        <div className="font-medium">{child.title}</div>
+                        <div className="font-semibold">{child.title}</div>
                         {child.description && (
-                          <div className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                          <div className="text-xs text-slate-300 line-clamp-1 mt-0.5">
                             {child.description}
                           </div>
                         )}
@@ -158,8 +158,8 @@ export function Navbar({ items }: NavbarProps) {
               className={cn(
                 "px-3 py-2 text-sm font-medium rounded-md transition-colors",
                 isActive
-                  ? "text-teal bg-light-grey"
-                  : "text-navy hover:text-teal hover:bg-light-grey/80"
+                  ? "text-teal-light bg-white/10 font-semibold"
+                  : "text-slate-200 hover:text-white hover:bg-white/10"
               )}
             >
               {item.title}
@@ -175,7 +175,7 @@ export function Navbar({ items }: NavbarProps) {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
-          className="p-2 rounded-md text-navy hover:bg-light-grey focus:outline-none focus:ring-2 focus:ring-navy"
+          className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-teal-light"
         >
           <svg
             className="w-6 h-6"
@@ -205,7 +205,7 @@ export function Navbar({ items }: NavbarProps) {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[65px] bg-white border-b border-border-subtle shadow-lg px-4 pt-3 pb-6 space-y-2 z-50 max-h-[calc(100vh-65px)] overflow-y-auto">
+        <div className="md:hidden fixed inset-x-0 top-[65px] bg-navy-dark border-b border-navy-light/60 shadow-2xl px-4 pt-3 pb-6 space-y-2 z-50 max-h-[calc(100vh-65px)] overflow-y-auto text-white">
           {items.map((item) => {
             const hasChildren = item.children && item.children.length > 0;
             const isActive = isLinkActive(item.href);
@@ -219,7 +219,7 @@ export function Navbar({ items }: NavbarProps) {
                       href={item.href}
                       className={cn(
                         "block flex-1 px-3 py-2 text-sm font-semibold rounded-md transition-colors",
-                        isActive ? "text-teal bg-light-grey" : "text-navy"
+                        isActive ? "text-teal-light bg-white/10" : "text-white hover:bg-white/5"
                       )}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -230,7 +230,7 @@ export function Navbar({ items }: NavbarProps) {
                       onClick={() => toggleMobileExpand(item.title)}
                       aria-expanded={isExpanded}
                       aria-label={`Toggle ${item.title} subcategories`}
-                      className="p-2 text-slate-500 hover:text-navy"
+                      className="p-2 text-slate-300 hover:text-white"
                     >
                       <svg
                         className={cn(
@@ -252,7 +252,7 @@ export function Navbar({ items }: NavbarProps) {
                   </div>
 
                   {isExpanded && (
-                    <div className="pl-4 space-y-1 border-l-2 border-border-subtle ml-3">
+                    <div className="pl-4 space-y-1 border-l-2 border-navy-light/60 ml-3">
                       {item.children?.map((child) => (
                         <Link
                           key={child.href}
@@ -260,8 +260,8 @@ export function Navbar({ items }: NavbarProps) {
                           className={cn(
                             "block px-3 py-2 text-sm rounded-md transition-colors",
                             pathname === child.href
-                              ? "bg-light-grey text-teal font-medium"
-                              : "text-slate-700 hover:bg-light-grey hover:text-teal"
+                              ? "bg-white/10 text-teal-light font-medium"
+                              : "text-slate-300 hover:bg-white/10 hover:text-white"
                           )}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -281,8 +281,8 @@ export function Navbar({ items }: NavbarProps) {
                 className={cn(
                   "block px-3 py-2 text-sm font-medium rounded-md transition-colors",
                   isActive
-                    ? "bg-light-grey text-teal"
-                    : "text-navy hover:bg-light-grey hover:text-teal"
+                    ? "bg-white/10 text-teal-light font-semibold"
+                    : "text-slate-200 hover:bg-white/10 hover:text-white"
                 )}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -291,10 +291,10 @@ export function Navbar({ items }: NavbarProps) {
             );
           })}
 
-          <div className="pt-3 border-t border-border-subtle">
+          <div className="pt-3 border-t border-navy-light/40">
             <Link
               href="/contact-us"
-              className="block w-full text-center py-2.5 px-4 rounded-md bg-navy text-white text-sm font-medium hover:bg-navy-dark transition-colors"
+              className="block w-full text-center py-2.5 px-4 rounded-md bg-teal text-white text-sm font-semibold hover:bg-teal-dark transition-colors shadow-sm"
               onClick={() => setMobileMenuOpen(false)}
             >
               Request Export Quote

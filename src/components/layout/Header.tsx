@@ -6,41 +6,21 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border-subtle">
-      {/* Top micro-bar for international trade contact context */}
-      <div className="bg-navy text-white text-xs py-1.5 hidden sm:block">
-        <Container className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-slate-300">
-            <span>Global Export &amp; Sourcing Partner</span>
-            <span className="hidden md:inline text-slate-500">•</span>
-            <span className="hidden md:inline">Commercial Chemical Supplies</span>
-          </div>
-          <div className="text-slate-300">
-            <Link
-              href="/contact-us"
-              className="hover:text-teal-light transition-colors flex items-center gap-1"
-            >
-              <span>Export Inquiry Desk</span>
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-        </Container>
-      </div>
-
+    <header className="sticky top-0 z-40 bg-navy text-white border-b border-navy-light/40 shadow-sm backdrop-blur-sm">
       {/* Main navigation header */}
       <Container className="flex items-center justify-between h-16 sm:h-20">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Visual monogram emblem */}
-            <div className="w-10 h-10 rounded-md bg-navy flex items-center justify-center text-white font-bold text-lg tracking-wider border border-teal/40 group-hover:border-teal transition-colors">
+            <div className="w-10 h-10 rounded-md bg-white/10 flex items-center justify-center text-white font-bold text-lg tracking-wider border border-teal/40 group-hover:border-teal transition-colors">
               <span className="text-white">I</span>
-              <span className="text-teal">G</span>
+              <span className="text-teal-light">G</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg sm:text-xl tracking-tight text-navy leading-none">
+              <span className="font-bold text-lg sm:text-xl tracking-tight text-white group-hover:text-teal-light transition-colors leading-none">
                 {siteConfig.name}
               </span>
-              <span className="text-[10px] sm:text-xs text-slate-500 tracking-wider uppercase mt-1">
+              <span className="text-[10px] sm:text-xs text-slate-300 tracking-wider uppercase mt-1">
                 International Trade
               </span>
             </div>
@@ -51,7 +31,7 @@ export function Header() {
           <Navbar items={siteConfig.navigation.main} />
 
           <div className="hidden lg:block">
-            <Button href="/contact-us" variant="primary" size="sm">
+            <Button href="/contact-us" variant="secondary" size="sm">
               Inquire Now
             </Button>
           </div>
