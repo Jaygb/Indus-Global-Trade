@@ -1,44 +1,49 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/sections/SectionHeading";
+import { ContactHero } from "@/components/contact/ContactHero";
+import { ContactInfo } from "@/components/contact/ContactInfo";
+import { InquiryForm } from "@/components/contact/InquiryForm";
+import { CTASection } from "@/components/sections/CTASection";
 import { constructMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = constructMetadata({
-  title: "Contact Us & Export Inquiries",
+  title: "Contact Us",
   description:
-    "Connect with the Indus Global Trade team for international trade inquiries, product specifications, and shipment quotes.",
+    "Contact Indus Global Trade for commercial export inquiries, product availability, chemical specifications, and shipping quotations.",
   path: "/contact-us",
 });
 
 export default function ContactPage() {
   return (
-    <div className="py-16 sm:py-24">
-      <Container className="space-y-8">
-        <SectionHeading
-          badge="Trade Desk"
-          title="Contact Indus Global Trade"
-          subtitle="Inquire about export terms, bulk specifications, and logistics. Interactive inquiry form interface will be implemented in the subsequent phase."
-        />
-        <div className="p-6 rounded-lg bg-light-grey/60 border border-border-subtle max-w-xl space-y-3 text-sm text-slate-700">
-          <p>
-            <span className="font-semibold text-navy">Export Inquiries:</span>{" "}
-            {siteConfig.contact.inquiryEmail}
-          </p>
-          <p>
-            <span className="font-semibold text-navy">General Desk:</span>{" "}
-            {siteConfig.contact.email}
-          </p>
-          <p>
-            <span className="font-semibold text-navy">Phone:</span>{" "}
-            {siteConfig.contact.phone}
-          </p>
-          <p>
-            <span className="font-semibold text-navy">Operating Hours:</span>{" "}
-            {siteConfig.contact.operatingHours}
-          </p>
-        </div>
-      </Container>
-    </div>
+    <>
+      {/* 1. Contact Hero */}
+      <ContactHero />
+
+      {/* 2. Main Contact & Form Section */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-border-subtle">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+            {/* Left Column: Contact Channels & Guidance */}
+            <div className="lg:col-span-5 order-2 lg:order-1">
+              <ContactInfo />
+            </div>
+
+            {/* Right Column: Interactive Inquiry Form */}
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <InquiryForm />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* 3. Final CTA */}
+      <CTASection
+        badge="Product Catalogue"
+        title="Explore Our Active Export Lines"
+        description="Review our current portfolio of verified commercial chemicals or reach out to discuss custom sourcing feasibility."
+        primaryCta={{ text: "Explore Products", href: "/products" }}
+        secondaryCta={{ text: "Chemicals Overview", href: "/products/chemicals" }}
+      />
+    </>
   );
 }

@@ -4,9 +4,11 @@ export interface ContactInfo {
   email: string;
   inquiryEmail: string;
   phone: string;
+  whatsapp?: string;
+  address: string;
   country: string;
   city?: string;
-  operatingHours?: string;
+  operatingHours: string;
 }
 
 export interface SiteConfig {
