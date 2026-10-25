@@ -1,0 +1,36 @@
+import { ElementType, HTMLAttributes, ReactNode } from "react";
+import { cn } from "@/lib/utils";
+
+interface ContainerProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
+  children: ReactNode;
+  className?: string;
+  size?: "default" | "narrow" | "wide";
+}
+
+export function Container({
+  as: Component = "div",
+  children,
+  className,
+  size = "default",
+  ...props
+}: ContainerProps) {
+  const sizeClasses = {
+    narrow: "max-w-4xl",
+    default: "max-w-7xl",
+    wide: "max-w-screen-2xl",
+  };
+
+  return (
+    <Component
+      className={cn(
+        "mx-auto w-full px-4 sm:px-6 lg:px-8",
+        sizeClasses[size],
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+}
