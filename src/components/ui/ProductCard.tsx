@@ -10,7 +10,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, categorySlug = "chemicals" }: ProductCardProps) {
   const detailsHref = `/products/${categorySlug}`;
-  const inquiryHref = `/contact-us`;
+  const inquiryHref = `/contact-us?product=${product.slug}`;
 
   return (
     <article className="flex flex-col h-full bg-white rounded-lg border border-border-subtle overflow-hidden hover:border-slate-300 transition-all duration-200">
@@ -23,10 +23,15 @@ export function ProductCard({ product, categorySlug = "chemicals" }: ProductCard
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-300 hover:scale-102"
         />
-        <div className="absolute top-3 left-3">
-          <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-navy bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded shadow-xs border border-slate-200">
+        <div className="absolute top-3 left-3 flex items-center gap-2">
+          <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-navy bg-white/95 px-2.5 py-1 rounded shadow-xs border border-slate-200">
             Chemicals
           </span>
+          {product.displayCasNumber && product.casNumber && (
+            <span className="inline-block text-[11px] font-mono text-slate-700 bg-white/95 px-2 py-1 rounded shadow-xs border border-slate-200">
+              CAS: {product.casNumber}
+            </span>
+          )}
         </div>
       </div>
 
@@ -52,10 +57,10 @@ export function ProductCard({ product, categorySlug = "chemicals" }: ProductCard
         {/* Action Buttons */}
         <div className="pt-5 mt-5 border-t border-border-subtle flex items-center gap-3">
           <Button href={inquiryHref} variant="primary" size="sm" className="flex-1">
-            Inquire Now
+            Request a Quote
           </Button>
           <Button href={detailsHref} variant="outline" size="sm">
-            Details
+            View Details
           </Button>
         </div>
       </div>

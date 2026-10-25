@@ -22,14 +22,7 @@ export function getMainNavItems(): NavItem[] {
     {
       title: "Products",
       href: "/products",
-      children: [
-        {
-          title: "All Products Overview",
-          href: "/products",
-          description: "Explore all export categories and product lines.",
-        },
-        ...categorySubItems,
-      ],
+      children: categorySubItems,
     },
     {
       title: "Contact Us",

@@ -14,6 +14,9 @@ export function Navbar({ items }: NavbarProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<Record<string, boolean>>({
+    Products: true,
+  });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on outside click
@@ -39,6 +42,13 @@ export function Navbar({ items }: NavbarProps) {
     setActiveDropdown((prev) => (prev === title ? null : title));
   };
 
+  const toggleMobileExpand = (title: string) => {
+    setMobileExpanded((prev) => ({
+      ...prev,
+      [title]: !prev[title],
+    }));
+  };
+
   const isLinkActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
@@ -55,21 +65,38 @@ export function Navbar({ items }: NavbarProps) {
 
           if (hasChildren) {
             return (
-              <div key={item.title} className="relative">
+              <div
+                key={item.title}
+                className="relative flex items-center"
+                onMouseEnter={() => setActiveDropdown(item.title)}
+              >
+                {/* Main Link */}
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "px-3 py-2 text-sm font-medium rounded-l-md transition-colors",
+                    isActive
+                      ? "text-teal bg-light-grey"
+                      : "text-navy hover:text-teal hover:bg-light-grey/80"
+                  )}
+                >
+                  {item.title}
+                </Link>
+
+                {/* Dropdown Toggle Button */}
                 <button
                   type="button"
                   onClick={() => toggleDropdown(item.title)}
-                  onMouseEnter={() => setActiveDropdown(item.title)}
                   aria-expanded={isDropdownOpen}
                   aria-haspopup="true"
+                  aria-label={`Toggle ${item.title} menu`}
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                    "px-1.5 py-2 text-sm font-medium rounded-r-md transition-colors",
                     isActive || isDropdownOpen
                       ? "text-teal bg-light-grey"
                       : "text-navy hover:text-teal hover:bg-light-grey/80"
                   )}
                 >
-                  <span>{item.title}</span>
                   <svg
                     className={cn(
                       "w-4 h-4 transition-transform duration-150",
@@ -93,7 +120,7 @@ export function Navbar({ items }: NavbarProps) {
                 {isDropdownOpen && (
                   <div
                     onMouseLeave={() => setActiveDropdown(null)}
-                    className="absolute left-0 mt-1 w-64 rounded-md shadow-lg bg-white border border-border-subtle py-2 z-50 animate-in fade-in slide-in-from-top-1"
+                    className="absolute left-0 top-full mt-1 w-64 rounded-md shadow-lg bg-white border border-border-subtle py-2 z-50 animate-in fade-in slide-in-from-top-1"
                     role="menu"
                     aria-orientation="vertical"
                   >
@@ -182,30 +209,67 @@ export function Navbar({ items }: NavbarProps) {
           {items.map((item) => {
             const hasChildren = item.children && item.children.length > 0;
             const isActive = isLinkActive(item.href);
+            const isExpanded = !!mobileExpanded[item.title];
 
             if (hasChildren) {
               return (
                 <div key={item.title} className="space-y-1">
-                  <div className="px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    {item.title}
-                  </div>
-                  <div className="pl-2 space-y-1">
-                    {item.children?.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "block flex-1 px-3 py-2 text-sm font-semibold rounded-md transition-colors",
+                        isActive ? "text-teal bg-light-grey" : "text-navy"
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileExpand(item.title)}
+                      aria-expanded={isExpanded}
+                      aria-label={`Toggle ${item.title} subcategories`}
+                      className="p-2 text-slate-500 hover:text-navy"
+                    >
+                      <svg
                         className={cn(
-                          "block px-3 py-2 text-sm rounded-md transition-colors",
-                          pathname === child.href
-                            ? "bg-light-grey text-teal font-medium"
-                            : "text-navy hover:bg-light-grey hover:text-teal"
+                          "w-4 h-4 transition-transform duration-150",
+                          isExpanded ? "rotate-180" : ""
                         )}
-                        onClick={() => setMobileMenuOpen(false)}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {child.title}
-                      </Link>
-                    ))}
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
                   </div>
+
+                  {isExpanded && (
+                    <div className="pl-4 space-y-1 border-l-2 border-border-subtle ml-3">
+                      {item.children?.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={cn(
+                            "block px-3 py-2 text-sm rounded-md transition-colors",
+                            pathname === child.href
+                              ? "bg-light-grey text-teal font-medium"
+                              : "text-slate-700 hover:bg-light-grey hover:text-teal"
+                          )}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {child.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             }

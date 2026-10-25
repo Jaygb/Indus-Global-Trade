@@ -24,6 +24,7 @@ export interface ProductItem {
   image: string;
   imageAlt: string;
   casNumber?: string;
+  displayCasNumber?: boolean;
   grade?: string;
   purity?: string;
   applications?: string[];
