@@ -14,12 +14,15 @@ export default function NotFound() {
         <p className="text-sm sm:text-base text-slate-600">
           The requested export resource or page could not be found. Please check the URL or navigate back to the home or catalogue pages.
         </p>
-        <div className="flex items-center justify-center gap-4 pt-2">
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Button href="/" variant="primary">
             Return to Home
           </Button>
           <Button href="/products" variant="outline">
             Browse Products
+          </Button>
+          <Button href="/contact-us" variant="outline">
+            Contact Us
           </Button>
         </div>
       </Container>
