@@ -79,7 +79,7 @@ cp .env.example .env.local
 
 | Variable | Description | Default / Example |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Production website base URL used for canonical URLs, sitemaps, and Open Graph assets. | `https://indusglobaltrade.com` |
+| `NEXT_SITE_URL` | Production website base URL used for canonical URLs, sitemaps, and Open Graph assets. | `https://indusglobaltrade.com` |
 | `NEXT_PUBLIC_INQUIRY_ENDPOINT` | Third-party form submission webhook (e.g., Formspree, Basin, Web3Forms, AWS API Gateway). | *(Empty = static demo mode)* |
 
 > **Security Notice**: Only prefix variables with `NEXT_PUBLIC_` if they are safe to be exposed to the browser. Never commit secrets, SMTP credentials, or private API keys to `.env.example` or version control.
@@ -146,7 +146,7 @@ The generated `out/` directory can be deployed to any static hosting provider or
 1. Connect your Git repository.
 2. Build command: `npm run build`
 3. Output directory: `out`
-4. Add environment variables: `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_INQUIRY_ENDPOINT`.
+4. Add environment variables: `NEXT_SITE_URL` and `NEXT_PUBLIC_INQUIRY_ENDPOINT`.
 
 ### Vercel / Netlify
 1. Connect your Git repository.
@@ -165,7 +165,7 @@ The generated `out/` directory can be deployed to any static hosting provider or
 
 Before public launch, the business owner must provide and configure the following assets:
 
-1. **Company Domain**: Point DNS to the static hosting provider and update `NEXT_PUBLIC_SITE_URL`.
+1. **Company Domain**: Point DNS to the static hosting provider and update `NEXT_SITE_URL`.
 2. **Real Business Identity**: Replace placeholders in `src/lib/site-config.ts` (`YOUR_BUSINESS_EMAIL`, `YOUR_INQUIRY_EMAIL`, `YOUR_BUSINESS_PHONE`, `YOUR_WHATSAPP_NUMBER`, `YOUR_BUSINESS_ADDRESS`).
 3. **Official Corporate Logo**: Provide official high-resolution vector logo to replace the temporary monogram emblem.
 4. **Product Photography**: Replace generated sample imagery in `public/images/` and `public/images/products/` with verified company-owned or manufacturer-approved photography.

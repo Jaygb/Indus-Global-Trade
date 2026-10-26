@@ -2,7 +2,7 @@ import { SiteConfig } from "@/types/site";
 import { getMainNavItems, footerQuickLinks } from "@/data/navigation";
 import { getActiveCategories } from "@/data/categories";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://indusglobaltrade.com";
+const siteUrl = process.env.NEXT_SITE_URL || "https://indusglobaltrade.com";
 
 export const siteConfig: SiteConfig = {
   name: "Indus Global Trade",
