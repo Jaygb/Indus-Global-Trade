@@ -16,9 +16,8 @@ export interface InquiryResult {
 }
 
 /**
- * Clean abstraction for handling inquiry submissions on a static site.
- * Configured via process.env.NEXT_PUBLIC_INQUIRY_ENDPOINT.
- * If no endpoint is configured (development/static baseline), simulates a realistic submission.
+ * Sends inquiry to Next.js API route /api/inquiry which dispatches an email
+ * from jaygabani3008@gmail.com to jaygabani365@gmail.com via Nodemailer.
  */
 export async function submitInquiry(data: InquiryFormData): Promise<InquiryResult> {
   // 1. Honeypot check - reject spam bots silently
@@ -29,60 +28,33 @@ export async function submitInquiry(data: InquiryFormData): Promise<InquiryResul
     };
   }
 
-  const endpoint = process.env.NEXT_PUBLIC_INQUIRY_ENDPOINT;
+  try {
+    const response = await fetch("/api/inquiry", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  // 2. If external endpoint (e.g., Formspree, Basin, Web3Forms, AWS Lambda) is configured:
-  if (endpoint && endpoint.trim().length > 0) {
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          fullName: data.fullName,
-          companyName: data.companyName,
-          businessEmail: data.businessEmail,
-          country: data.country,
-          product: data.productTitle,
-          productSlug: data.productSlug,
-          estimatedQuantity: data.estimatedQuantity || "Not specified",
-          message: data.message,
-          submittedAt: new Date().toISOString(),
-        }),
-      });
+    const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(`Endpoint returned status ${response.status}`);
-      }
-
-      return {
-        success: true,
-        message: "Your inquiry has been successfully sent to our trade desk.",
-      };
-    } catch {
-      return {
-        success: false,
-        message:
-          "We couldn't submit your inquiry right now. Please try again or reach out to our trade desk directly.",
-      };
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Failed to send inquiry.");
     }
+
+    return {
+      success: true,
+      message:
+        result.message ||
+        "Your inquiry has been successfully sent to our trade desk.",
+    };
+  } catch (error) {
+    const errorMsg =
+      error instanceof Error ? error.message : "Failed to send inquiry email.";
+    return {
+      success: false,
+      message: errorMsg,
+    };
   }
-
-  // 3. Fallback for static deployment without active third-party form handler
-  await new Promise((resolve) => setTimeout(resolve, 800));
-
-  if (process.env.NODE_ENV !== "production") {
-    // Helpful developer notice in development console
-    console.info(
-      "[InquiryService] NEXT_PUBLIC_INQUIRY_ENDPOINT is not configured. Submission simulated successfully for static website.",
-      data
-    );
-  }
-
-  return {
-    success: true,
-    message: "Your inquiry has been received. Our trade desk will review your requirements.",
-  };
 }

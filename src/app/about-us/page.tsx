@@ -4,7 +4,6 @@ import { WhoWeAreSection } from "@/components/sections/WhoWeAreSection";
 import { WhatWeDoSection } from "@/components/sections/WhatWeDoSection";
 import { OurApproachSection } from "@/components/sections/OurApproachSection";
 import { MissionVisionSection } from "@/components/sections/MissionVisionSection";
-import { CurrentFocusSection } from "@/components/sections/CurrentFocusSection";
 import { FutureGrowthSection } from "@/components/sections/FutureGrowthSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { constructMetadata } from "@/lib/seo";
@@ -34,13 +33,10 @@ export default function AboutPage() {
       {/* 5. Mission and Vision */}
       <MissionVisionSection />
 
-      {/* 6. Current Product Focus */}
-      <CurrentFocusSection />
-
-      {/* 7. Future Growth */}
+      {/* 6. Future Growth */}
       <FutureGrowthSection />
 
-      {/* 8. Final Inquiry CTA */}
+      {/* 7. Final Inquiry CTA */}
       <CTASection
         badge="Partner With Us"
         title="Let's Build a Business Connection"

@@ -6,6 +6,12 @@ import { getActiveProducts } from "@/data/products";
 import { countries } from "@/data/countries";
 import { submitInquiry, InquiryFormData } from "@/lib/inquiry-service";
 import { Button } from "@/components/ui/Button";
+import { CustomSelect } from "@/components/ui/CustomSelect";
+
+const countryOptions = countries.map((c) => ({
+  value: c.name,
+  label: c.name,
+}));
 
 function InquiryFormContent() {
   const searchParams = useSearchParams();
@@ -17,14 +23,20 @@ function InquiryFormContent() {
     ? activeProducts.find((p) => p.slug.toLowerCase() === productQuery.toLowerCase())
     : undefined;
 
+  const initialProductTitle = matchedProduct
+    ? matchedProduct.title
+    : productQuery
+      ? productQuery.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+      : "";
+
   // Form State initialized with URL product preselection
   const [formData, setFormData] = useState<InquiryFormData>(() => ({
     fullName: "",
     companyName: "",
     businessEmail: "",
     country: "",
-    productSlug: matchedProduct ? matchedProduct.slug : "",
-    productTitle: matchedProduct ? matchedProduct.title : "",
+    productSlug: matchedProduct ? matchedProduct.slug : (productQuery || ""),
+    productTitle: initialProductTitle,
     estimatedQuantity: "",
     message: "",
     botField: "",
@@ -44,6 +56,12 @@ function InquiryFormContent() {
         ...prev,
         productSlug: matchedProduct.slug,
         productTitle: matchedProduct.title,
+      }));
+    } else if (productQuery) {
+      setFormData((prev) => ({
+        ...prev,
+        productSlug: productQuery,
+        productTitle: productQuery.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
       }));
     }
   }
@@ -71,8 +89,8 @@ function InquiryFormContent() {
       newErrors.country = "Please select your country.";
     }
 
-    if (!formData.productSlug.trim()) {
-      newErrors.productSlug = "Please select a product of interest.";
+    if (!formData.productTitle.trim()) {
+      newErrors.productTitle = "Please enter your product of interest.";
     }
 
     if (!formData.message.trim()) {
@@ -83,27 +101,6 @@ function InquiryFormContent() {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handleProductChange = (slug: string) => {
-    if (slug === "general") {
-      setFormData((prev) => ({
-        ...prev,
-        productSlug: "general",
-        productTitle: "General Commercial Inquiry",
-      }));
-    } else {
-      const selected = activeProducts.find((p) => p.slug === slug);
-      setFormData((prev) => ({
-        ...prev,
-        productSlug: slug,
-        productTitle: selected ? selected.title : "",
-      }));
-    }
-
-    if (errors.productSlug) {
-      setErrors((prev) => ({ ...prev, productSlug: "" }));
-    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -125,7 +122,7 @@ function InquiryFormContent() {
       }
     } catch {
       setSubmitError(
-        "We couldn't submit your inquiry right now. Please try again or contact our trade desk directly."
+        "Unable to send your inquiry right now. Please try again or reach out to our trade desk directly."
       );
     } finally {
       setIsSubmitting(false);
@@ -164,7 +161,7 @@ function InquiryFormContent() {
             Thank You for Your Inquiry
           </h3>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-            Your export inquiry has been received. Our trade desk will review your product specifications and get in touch with you.
+            Your export inquiry has been sent to our trade desk (<span className="text-navy font-semibold">jaygabani365@gmail.com</span>). Our team will review your product specifications and reply to you shortly.
           </p>
         </div>
 
@@ -320,26 +317,20 @@ function InquiryFormContent() {
             >
               Destination / Country <span className="text-red-500">*</span>
             </label>
-            <select
+            <CustomSelect
               id={`${formId}-country`}
+              name="country"
               required
-              aria-required="true"
-              aria-invalid={!!errors.country}
-              aria-describedby={errors.country ? `${formId}-country-err` : undefined}
+              hasError={!!errors.country}
+              ariaDescribedBy={errors.country ? `${formId}-country-err` : undefined}
               value={formData.country}
-              onChange={(e) => {
-                setFormData({ ...formData, country: e.target.value });
+              onChange={(val) => {
+                setFormData({ ...formData, country: val });
                 if (errors.country) setErrors({ ...errors, country: "" });
               }}
-              className="w-full px-3.5 py-2.5 text-sm rounded-md border border-slate-300 bg-white text-slate-900 focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
-            >
-              <option value="">Select your country *</option>
-              {countries.map((c) => (
-                <option key={c.code} value={c.name}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
+              placeholder="Select your destination country *"
+              options={countryOptions}
+            />
             {errors.country && (
               <p id={`${formId}-country-err`} className="text-xs text-red-600 font-medium">
                 {errors.country}
@@ -357,29 +348,29 @@ function InquiryFormContent() {
             >
               Product of Interest <span className="text-red-500">*</span>
             </label>
-            <select
+            <input
               id={`${formId}-product`}
+              type="text"
               required
               aria-required="true"
-              aria-invalid={!!errors.productSlug}
-              aria-describedby={errors.productSlug ? `${formId}-product-err` : undefined}
-              value={formData.productSlug}
-              onChange={(e) => handleProductChange(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-sm rounded-md border border-slate-300 bg-white text-slate-900 focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
-            >
-              <option value="">Select a product of interest *</option>
-              <optgroup label="Active Chemical Products">
-                {activeProducts.map((p) => (
-                  <option key={p.slug} value={p.slug}>
-                    {p.title}
-                  </option>
-                ))}
-              </optgroup>
-              <option value="general">General Commercial Export Inquiry</option>
-            </select>
-            {errors.productSlug && (
+              aria-invalid={!!errors.productTitle}
+              aria-describedby={errors.productTitle ? `${formId}-product-err` : undefined}
+              value={formData.productTitle}
+              onChange={(e) => {
+                const val = e.target.value;
+                setFormData({
+                  ...formData,
+                  productTitle: val,
+                  productSlug: val.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-"),
+                });
+                if (errors.productTitle) setErrors({ ...errors, productTitle: "" });
+              }}
+              placeholder="e.g. Refined Glycerin, Menthol, MSG, or Custom Product"
+              className="w-full px-3.5 py-2.5 text-sm rounded-md border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
+            />
+            {errors.productTitle && (
               <p id={`${formId}-product-err`} className="text-xs text-red-600 font-medium">
-                {errors.productSlug}
+                {errors.productTitle}
               </p>
             )}
           </div>
