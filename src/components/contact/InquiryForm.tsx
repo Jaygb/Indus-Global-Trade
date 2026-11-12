@@ -404,7 +404,7 @@ function InquiryFormContent() {
           <textarea
             id={`${formId}-message`}
             required
-            rows={4}
+            rows={6}
             aria-required="true"
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? `${formId}-message-err` : undefined}

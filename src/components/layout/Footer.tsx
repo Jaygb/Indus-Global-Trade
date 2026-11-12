@@ -80,10 +80,6 @@ export function Footer() {
                 <span className="block text-slate-400 text-xs">Export Quotations:</span>
                 {siteConfig.contact.inquiryEmail}
               </p>
-              <p>
-                <span className="block text-slate-400 text-xs">Operating Hours:</span>
-                {siteConfig.contact.operatingHours}
-              </p>
             </div>
           </div>
         </div>

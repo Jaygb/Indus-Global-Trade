@@ -54,13 +54,10 @@ export function ProductCard({ product, categorySlug = "chemicals" }: ProductCard
           {product.shortDescription}
         </p>
 
-        {/* Action Buttons */}
-        <div className="pt-5 mt-5 border-t border-border-subtle flex items-center gap-3">
-          <Button href={inquiryHref} variant="primary" size="sm" className="flex-1">
+        {/* Action Button */}
+        <div className="pt-5 mt-5 border-t border-border-subtle">
+          <Button href={inquiryHref} variant="primary" size="md" className="w-full">
             Request a Quote
-          </Button>
-          <Button href={detailsHref} variant="outline" size="sm">
-            View Details
           </Button>
         </div>
       </div>

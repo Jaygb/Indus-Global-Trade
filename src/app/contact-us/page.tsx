@@ -23,14 +23,14 @@ export default function ContactPage() {
       <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-border-subtle">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-            {/* Left Column: Contact Channels & Guidance */}
-            <div className="lg:col-span-5 order-2 lg:order-1">
-              <ContactInfo />
+            {/* Left Column: Interactive Inquiry Form */}
+            <div className="lg:col-span-7">
+              <InquiryForm />
             </div>
 
-            {/* Right Column: Interactive Inquiry Form */}
-            <div className="lg:col-span-7 order-1 lg:order-2">
-              <InquiryForm />
+            {/* Right Column: Business Inquiry Guidance */}
+            <div className="lg:col-span-5">
+              <ContactInfo />
             </div>
           </div>
         </Container>
