@@ -13,8 +13,9 @@ export const siteConfig: SiteConfig = {
   url: siteUrl,
   ogImage: `${siteUrl}/images/og-image.jpg`,
   contact: {
-    email: "jaygabani365@gmail.com",
-    inquiryEmail: "jaygabani365@gmail.com",
+    email: "info@indusglobaltrade.in",
+    inquiryEmail: "sales@indusglobaltrade.in",
+    supportEmail: "support@indusglobaltrade.in",
     phone: "+91 9023964267",
     whatsapp: "+91 9023964267",
     address: "Ahmedabad, Gujarat",

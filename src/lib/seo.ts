@@ -71,6 +71,7 @@ export function getOrganizationSchema() {
     legalName: siteConfig.legalName,
     url: siteConfig.url,
     description: siteConfig.description,
+    email: siteConfig.contact.email,
   };
 }
 

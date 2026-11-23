@@ -17,7 +17,7 @@ export interface InquiryResult {
 
 /**
  * Sends inquiry to Next.js API route /api/inquiry which dispatches an email
- * from jaygabani3008@gmail.com to jaygabani365@gmail.com via Nodemailer.
+ * via Nodemailer to the trade desk administrator.
  */
 export async function submitInquiry(data: InquiryFormData): Promise<InquiryResult> {
   // 1. Honeypot check - reject spam bots silently

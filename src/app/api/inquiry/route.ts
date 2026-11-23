@@ -41,10 +41,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const smtpUser = process.env.SMTP_USER || "jaygabani3008@gmail.com";
+    const smtpUser = process.env.SMTP_USER || "info@indusglobaltrade.in";
     const rawPass = process.env.SMTP_PASS;
     const smtpPass = rawPass ? rawPass.replace(/['"]/g, "").trim() : undefined;
-    const adminEmail = process.env.ADMIN_EMAIL || "jaygabani365@gmail.com";
+    const adminEmail = process.env.ADMIN_EMAIL || "info@indusglobaltrade.in";
 
     // 3. Fallback if SMTP_PASS is not set yet in environment
     if (!smtpPass || smtpPass.trim().length === 0) {

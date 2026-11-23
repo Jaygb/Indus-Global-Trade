@@ -3,6 +3,7 @@ import { NavItem } from "./navigation";
 export interface ContactInfo {
   email: string;
   inquiryEmail: string;
+  supportEmail: string;
   phone: string;
   whatsapp?: string;
   address: string;

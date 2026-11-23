@@ -74,11 +74,30 @@ export function Footer() {
             <div className="space-y-2 text-xs sm:text-sm text-slate-300">
               <p>
                 <span className="block text-slate-400 text-xs">General:</span>
-                {siteConfig.contact.email}
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
+                >
+                  {siteConfig.contact.email}
+                </a>
               </p>
               <p>
                 <span className="block text-slate-400 text-xs">Export Quotations:</span>
-                {siteConfig.contact.inquiryEmail}
+                <a
+                  href={`mailto:${siteConfig.contact.inquiryEmail}`}
+                  className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
+                >
+                  {siteConfig.contact.inquiryEmail}
+                </a>
+              </p>
+              <p>
+                <span className="block text-slate-400 text-xs">Customer Support:</span>
+                <a
+                  href={`mailto:${siteConfig.contact.supportEmail}`}
+                  className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
+                >
+                  {siteConfig.contact.supportEmail}
+                </a>
               </p>
             </div>
           </div>
