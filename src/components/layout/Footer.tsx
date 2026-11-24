@@ -73,7 +73,7 @@ export function Footer() {
             </h3>
             <div className="space-y-2 text-xs sm:text-sm text-slate-300">
               <p>
-                <span className="block text-slate-400 text-xs">General:</span>
+                <span className="block text-slate-400 text-xs">Trade Inquiries:</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
                   className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
@@ -81,23 +81,15 @@ export function Footer() {
                   {siteConfig.contact.email}
                 </a>
               </p>
-              <p>
-                <span className="block text-slate-400 text-xs">Export Quotations:</span>
-                <a
-                  href={`mailto:${siteConfig.contact.inquiryEmail}`}
-                  className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
+              <p className="text-xs text-slate-400 pt-1">
+                For commercial quotations and specifications, submit an inquiry via our{" "}
+                <Link
+                  href="/contact-us"
+                  className="text-teal-light hover:text-white transition-colors underline"
                 >
-                  {siteConfig.contact.inquiryEmail}
-                </a>
-              </p>
-              <p>
-                <span className="block text-slate-400 text-xs">Customer Support:</span>
-                <a
-                  href={`mailto:${siteConfig.contact.supportEmail}`}
-                  className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline"
-                >
-                  {siteConfig.contact.supportEmail}
-                </a>
+                  contact desk
+                </Link>
+                .
               </p>
             </div>
           </div>
@@ -108,10 +100,8 @@ export function Footer() {
           <div>
             &copy; {currentYear} {siteConfig.legalName}. All rights reserved.
           </div>
-          <div className="flex items-center gap-6">
-            <span>Export &amp; Global Trade Operations</span>
-            <span className="text-slate-600">•</span>
-            <span>Static Deployment Architecture</span>
+          <div>
+            <span>International Export &amp; Supply Partner</span>
           </div>
         </div>
       </Container>
